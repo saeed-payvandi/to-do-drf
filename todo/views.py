@@ -7,6 +7,7 @@ from .serializers import TodoSerializer
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import generics, mixins
+from rest_framework import viewsets
 
 # Create your views here.
 
@@ -132,6 +133,14 @@ class TodosListGenericApiView(generics.ListCreateAPIView):
 
 
 class TodosDetailGenericApiView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = ToDo.objects.order_by('priority').all()
+    serializer_class = TodoSerializer
+
+#endregion
+
+#region viewsets
+
+class TodosViewSetApiView(viewsets.ModelViewSet):
     queryset = ToDo.objects.order_by('priority').all()
     serializer_class = TodoSerializer
 
