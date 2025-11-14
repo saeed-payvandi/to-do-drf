@@ -14,5 +14,6 @@ urlpatterns = [
     path('mixins/<pk>', views.TodosDetailMixinApiView.as_view()),
     path('generics/', views.TodosListGenericApiView.as_view()),
     path('generics/<pk>', views.TodosDetailGenericApiView.as_view()),
-    path('viewsets/', include(router.urls))
+    path('viewsets/', include(router.urls)),
+    path('users/', views.UserGenericApiView.as_view()),
 ]

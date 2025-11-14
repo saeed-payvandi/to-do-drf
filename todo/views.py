@@ -3,13 +3,16 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
 from .models import ToDo
-from .serializers import TodoSerializer
+from .serializers import TodoSerializer, UserSerializer
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import generics, mixins
 from rest_framework import viewsets
+from django.contrib.auth import get_user_model
 
 # Create your views here.
+
+User = get_user_model()
 
 
 #region function base view
@@ -145,3 +148,11 @@ class TodosViewSetApiView(viewsets.ModelViewSet):
     serializer_class = TodoSerializer
 
 #endregion
+
+#region users
+
+class UserGenericApiView(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+#end region
