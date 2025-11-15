@@ -1,15 +1,17 @@
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth import get_user_model
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
-from .models import ToDo
-from .serializers import TodoSerializer, UserSerializer
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework import generics, mixins
 from rest_framework import viewsets
-from django.contrib.auth import get_user_model
 from rest_framework.pagination import PageNumberPagination, LimitOffsetPagination
+from rest_framework.authentication import BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+from .models import ToDo
+from .serializers import TodoSerializer, UserSerializer
 
 # Create your views here.
 
@@ -139,6 +141,8 @@ class TodosListGenericApiView(generics.ListCreateAPIView):
     serializer_class = TodoSerializer
     # pagination_class = PageNumberPagination
     pagination_class = TodoListGenericApiViewPagination
+    authentication_classes = [BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
 
 class TodosDetailGenericApiView(generics.RetrieveUpdateDestroyAPIView):
