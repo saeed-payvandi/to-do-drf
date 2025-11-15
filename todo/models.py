@@ -6,7 +6,7 @@ User = get_user_model()
 # Create your models here.
 class ToDo(models.Model):
     title = models.CharField(max_length=300)
-    content = models.TextField()
+    content = models.TextField(blank=True)
     priority = models.IntegerField(default=1)
     is_done = models.BooleanField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='todos')

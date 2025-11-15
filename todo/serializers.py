@@ -6,6 +6,15 @@ from .models import ToDo, User
 
 
 class TodoSerializer(serializers.ModelSerializer):
+    def validate_priority(self, priority):
+        if priority < 1:
+            raise serializers.ValidationError("priority is not ok")
+        return priority
+    
+    # def validate(self, attrs):
+    #     print(attrs)
+    #     return super().validate(attrs)
+
     class Meta:
         model = ToDo
         fields = '__all__'
